@@ -133,19 +133,7 @@
 #video-lightbox {
     overflow-y: hidden;
 }
-/* اجازه اسکرول عمودی در موبایل روی ویدیوها */
-#reels-container,
-#reels-container figure,
-#reels-container video,
-#reels-container img {
-    touch-action: pan-y;
-}
-/* جلوگیری از اسکرول افقی ناخواسته در موبایل */
-@supports (touch-action: pan-y) {
-    #reels-container {
-        scroll-behavior: auto; /* از scroll-smooth در موبایل جلوگیری کن */
-    }
-}
+
     </style>
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffbea">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#052e16">
