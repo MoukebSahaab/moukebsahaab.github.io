@@ -133,12 +133,75 @@
 #video-lightbox {
     overflow-y: hidden;
 }
+/* اجازه اسکرول عمودی در موبایل روی ویدیو */
+#reels-vertical-container {
+    touch-action: pan-y;
+}
 
+/* دکمه Play در وسط ویدیو */
+#video-play-button {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0%;
+    padding: 16px;
+    backdrop-filter: blur(1px);
+    transition: all 0.2s ease;
+}
+
+#video-play-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+}
+/* اجازه اسکرول عمودی در موبایل روی ویدیو */
+#reels-mobile-container {
+    touch-action: manipulation;
+}
+
+/* جلوگیری از انتخاب متن روی دکمه‌ها */
+#reels-prev-btn, #reels-next-btn {
+    user-select: none;
+}
+#reels-play-button {
+    /* بدون محتوای داخلی — فقط از ::before استفاده می‌کنیم */
+    width: 70px;
+    height: 70px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    transition: all 0.2s ease;
+    opacity: 0.8;
+    z-index: 20;
+}
+
+#reels-play-button::before {
+    content: '▶';
+    font-size: 36px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+#reels-play-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+}
     </style>
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffbea">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#052e16">
 </head>
 <body class="bg-white text-slate-900 dark:bg-green-950 dark:text-slate-100">
+   <!-- Loading Screen -->
+<div id="loading-screen" class="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white dark:bg-green-950 transition-opacity duration-1000">
+    <img src="assets/logo.png" alt="logo_alt" class="h-40 sm:h-40 mb-4 opacity-80 animate-bounce" />
+    <div class="w-16 h-16 border-4 border-primary-400 border-t-transparent rounded-full animate-spin"></div>
+</div>
     <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-green-950/60 border-b border-slate-200/70 dark:border-green-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -249,29 +312,67 @@
         </section>
 
         <!-- Reels / Vertical Videos Section -->
-        <section id="reels" class="relative" itemscope itemtype="http://schema.org/VideoGallery" aria-label="reels_aria">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-                <div class="rounded-3xl border-2 border-dotted border-primary-400 bg-white dark:bg-green-950 p-6 sm:p-10 shadow-md">
-                    <div class="flex items-start gap-4 sm:gap-6 mb-6">
-                        <div class="shrink-0 h-12 w-12 rounded-2xl bg-primary-100 dark:bg-primary-400/10 grid place-items-center text-primary-700 dark:text-primary-300">
-                            <span class="material-symbols-rounded">movie</span>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="reels_title">ویدئو‌ها و ویدئوها</h2>
-                            <p class="text-slate-600 dark:text-slate-400" data-i18n="reels_desc">ویدئوهای فعالیت‌های موکب و خادمین</p>
-                        </div>
-                    </div>
-
-                    <!-- Horizontal Scroll Container (Vertical Reels) -->
-                    <div class="relative">
-                        <div id="reels-container" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth touch-pan-x snap-x snap-mandatory"
-                             style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
-                            <!-- Videos will be injected here by JS -->
-                        </div>
-                           </div>
+      <!-- Reels / Responsive Video Feed (Reels Mode on Mobile, Horizontal on Desktop) -->
+<section id="reels" class="relative" itemscope itemtype="http://schema.org/VideoGallery" aria-label="reels_aria">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div class="rounded-3xl border-2 border-dotted border-primary-400 bg-white dark:bg-green-950 p-6 sm:p-10 shadow-md">
+            <div class="flex items-start gap-4 sm:gap-6 mb-6">
+                <div class="shrink-0 h-12 w-12 rounded-2xl bg-primary-100 dark:bg-primary-400/10 grid place-items-center text-primary-700 dark:text-primary-300">
+                    <span class="material-symbols-rounded">movie</span>
+                </div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="reels_title">ریلز و ویدئوها</h2>
+                    <p class="text-slate-600 dark:text-slate-400" data-i18n="reels_desc">ویدئوهای زنده از فعالیت‌های موکب و خادمین</p>
                 </div>
             </div>
-        </section>
+
+            <!-- Desktop: Horizontal Scroll -->
+            <div id="reels-desktop" class="hidden">
+                <div id="reels-container" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth touch-pan-x snap-x snap-mandatory"
+                     style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+                    <!-- Videos will be injected here by JS -->
+                </div>
+                <div id="reels-empty" class="hidden rounded-2xl border-2 border-dotted border-primary-300 p-8 text-center text-slate-600 dark:text-slate-400" data-i18n="reels_empty">ویدئویی بارگذاری نشده است.</div>
+            </div>
+
+            <!-- Mobile: Single Video with Control Buttons -->
+<!-- Mobile: Single Video with Control Buttons -->
+<div id="reels-mobile" class="hidden">
+    <div class="relative mx-auto max-w-[450px] h-[700px] overflow-hidden rounded-2xl">
+        <!-- Container for Video -->
+        <div id="reels-video-wrapper" class="w-full h-full bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden">
+            <video id="reels-current-video" class="w-full h-full object-cover"></video>
+        </div>
+
+        <!-- Play Button: Centered in Viewport -->
+        <button id="reels-play-button" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></button>
+
+        <!-- Left Control Button (Previous) -->
+        <button id="reels-prev-btn" dir="ltr" class="absolute start-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white text-xl hover:bg-black/60 transition">
+            <span class="material-symbols-rounded">arrow_back</span>
+        </button>
+
+        <!-- Right Control Button (Next) -->
+        <button id="reels-next-btn" dir="ltr" class="absolute end-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white text-xl hover:bg-black/60 transition">
+            <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+    </div>
+</div>
+        </div>
+    </div>
+</section>
+<!-- Fullscreen Video Lightbox (for mobile view too) -->
+<div id="video-lightbox" class="hidden fixed inset-0 z-[60] bg-black flex items-center justify-center p-0">
+    <button id="video-lightbox-close" class="absolute top-4 end-4 z-10 h-10 w-10 rounded-full bg-white/90 text-slate-900 grid place-items-center hover:bg-white" aria-label="بستن ویدئو">
+        <span class="material-symbols-rounded">close</span>
+    </button>
+    <div class="relative w-full h-screen max-w-[450px] mx-auto flex items-center justify-center">
+        <video id="video-lightbox-player" class="w-full h-full object-contain" playsinline></video>
+        <button id="video-play-button" class="absolute inset-0 flex items-center justify-center text-white opacity-80 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-rounded text-6xl">play_arrow</span>
+        </button>
+    </div>
+</div>
 
         <!-- Video Lightbox -->
       <!-- Fullscreen Vertical Video Lightbox (Reels Mode) -->
@@ -499,35 +600,64 @@
 
         // Initialize Reels (Vertical Videos)
         function initReels() {
-    const container = document.getElementById('reels-container');
-    const empty = document.getElementById('reels-empty');
     const base = 'assets/reels/';
     const candidates = Array.from({ length: 20 }, (_, i) => `${base}${i + 1}.mp4`);
-    let loaded = 0;
-    let added = 0;
-    let hasVideos = false;
+    let videos = [];
+    let currentVideoIndex = 0;
 
-    candidates.forEach(src => {
-        const video = document.createElement('video');
-        video.preload = 'metadata';
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
+    // بررسی وجود ویدیو
+    const checkVideo = (src) => {
+        return new Promise((resolve) => {
+            const video = document.createElement('video');
+            video.src = src;
+            video.preload = 'metadata';
+            video.addEventListener('loadedmetadata', () => resolve({ src, video }));
+            video.addEventListener('error', () => resolve(null));
+        });
+    };
 
-        const source = document.createElement('source');
-        source.src = src;
-        source.type = 'video/mp4';
-        video.appendChild(source);
+    // بارگذاری ویدیوها
+    Promise.all(candidates.map(checkVideo)).then(results => {
+        videos = results.filter(Boolean);
+        if (videos.length === 0) {
+            document.getElementById('reels-empty').classList.remove('hidden');
+            return;
+        }
 
-        video.addEventListener('loadedmetadata', () => {
+        // تنظیم نمایش اولیه
+        setupView();
+        window.addEventListener('resize', setupView);
+    });
+
+    // تشخیص دستگاه و نمایش مناسب
+    function setupView() {
+        const isMobile = window.innerWidth <= 768;
+        const desktopView = document.getElementById('reels-desktop');
+        const mobileView = document.getElementById('reels-mobile');
+
+        if (isMobile) {
+            desktopView.classList.add('hidden');
+            mobileView.classList.remove('hidden');
+            initMobileView();
+        } else {
+            mobileView.classList.add('hidden');
+            desktopView.classList.remove('hidden');
+            initDesktopView();
+        }
+    }
+
+    // حالت دسکتاپ: اسکرول افقی
+    function initDesktopView() {
+        const container = document.getElementById('reels-container');
+        container.innerHTML = '';
+
+        videos.forEach(({ src, video }) => {
             const figure = document.createElement('figure');
             figure.className = 'relative aspect-[9/16] w-64 flex-shrink-0 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 cursor-pointer hover:scale-[1.02] transition-transform duration-300';
-            figure.setAttribute('itemprop', 'associatedMedia');
-            figure.setAttribute('itemscope', '');
-            figure.setAttribute('itemtype', 'http://schema.org/VideoObject');
 
+            video.muted = true;
+            video.loop = true;
             video.className = 'w-full h-full object-cover';
-            video.setAttribute('alt', translations[document.documentElement.lang || 'fa'].gallery_image_alt);
 
             figure.addEventListener('mouseenter', () => video.play());
             figure.addEventListener('mouseleave', () => video.pause());
@@ -538,70 +668,112 @@
 
             figure.appendChild(video);
             container.appendChild(figure);
-            added++;
-            hasVideos = true; // حداقل یک ویدئو بارگذاری شد
+
+            video.load();
         });
 
-        video.addEventListener('error', () => {
-            // ویدئو وجود ندارد، نادیده گرفته شود
+        // اسکرول با ماوس
+        let isDown = false, startX, scrollLeft;
+        const el = container;
+        el.addEventListener('mousedown', e => { isDown = true; el.classList.add('cursor-grabbing'); startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+        el.addEventListener('mouseleave', () => { isDown = false; el.classList.remove('cursor-grabbing'); });
+        el.addEventListener('mouseup', () => { isDown = false; el.classList.remove('cursor-grabbing'); });
+        el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; const walk = (x - startX) * 1.5; el.scrollLeft = scrollLeft - walk; });
+        el.addEventListener('wheel', e => { e.preventDefault(); el.scrollLeft += e.deltaY; });
+    }
+
+    // حالت موبایل: تک ویدیو با دکمه‌های کنترل
+    function initMobileView() {
+    const videoWrapper = document.getElementById('reels-video-wrapper');
+    const videoEl = document.getElementById('reels-current-video');
+    const playBtn = document.getElementById('reels-play-button');
+    const prevBtn = document.getElementById('reels-prev-btn');
+    const nextBtn = document.getElementById('reels-next-btn');
+
+    // نمایش ویدیوی فعلی
+    function loadCurrentVideo() {
+        const { src } = videos[currentVideoIndex];
+        videoEl.src = src;
+        videoEl.load();
+        videoEl.pause();
+        playBtn.style.display = 'block';
+    }
+
+    // کلیک روی دکمه پلی
+    playBtn.addEventListener('click', () => {
+        videoEl.play().then(() => {
+            playBtn.style.display = 'none';
+        }).catch(() => {
+            alert("پخش ویدیو نیاز به تعامل کاربر دارد.");
         });
+    });
+// کلیک روی ویدیو: پخش/توقف
+videoWrapper.addEventListener('click', (e) => {
+    // اگر روی دکمه پلی یا دکمه‌های کنترل کلیک شد، تداخل نداشته باشد
+    if (e.target === playBtn || e.target.closest('button')) return;
 
-        video.load();
-        loaded++;
+    if (videoEl.paused) {
+        // اگر ویدیو متوقف بود، پخش کن
+        videoEl.play().then(() => {
+            playBtn.style.display = 'none'; // دکمه پلی را مخفی کن
+        }).catch(err => {
+            console.warn("پخش ویدیو ناموفق بود:", err);
+        });
+    } else {
+        // اگر در حال پخش بود، متوقف کن
+        videoEl.pause();
+        // دکمه پلی دوباره نمایش داده نمی‌شود (همانطور که خواستید)
+    }
+});
+    // پخش شد
+    videoEl.addEventListener('play', () => {
+        playBtn.style.display = 'none';
     });
 
-    // فقط پس از بارگذاری تمامی ویدئوها بررسی کن
-    const checkInterval = setInterval(() => {
-        if (loaded === candidates.length) {
-            clearInterval(checkInterval);
-            if (added === 0) {
-                empty.classList.remove('hidden');
-            } else {
-                empty.classList.add('hidden'); // پیام خالی را مخفی کن
-            }
-        }
-    }, 100);
-
-    // ✅ اضافه کردن قابلیت Drag Scroll با ماوس
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    container.addEventListener('mousedown', (e) => {
-        isDown = true;
-        container.classList.add('cursor-grabbing');
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-        e.preventDefault();
-    });
-
-    container.addEventListener('mouseleave', () => {
-        isDown = false;
-        container.classList.remove('cursor-grabbing');
-    });
-
-    container.addEventListener('mouseup', () => {
-        isDown = false;
-        container.classList.remove('cursor-grabbing');
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 1.5; // سرعت کشیدن
-        container.scrollLeft = scrollLeft - walk;
-    });
-
-    // ✅ اضافه کردن اسکرول با حلقه ماوس (اختیاری، اما برای تضمین)
-    container.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
-            e.preventDefault();
-            container.scrollLeft += e.deltaY;
+    // پوز شد
+    videoEl.addEventListener('pause', () => {
+        if (!videoEl.ended) {
+            playBtn.style.display = 'block';
         }
     });
+
+    // تمام شد
+    videoEl.addEventListener('ended', () => {
+        playBtn.style.display = 'block';
+    });
+
+    // کلیک روی ویدیو هم پخش/پوز کند
+    videoWrapper.addEventListener('click', (e) => {
+        if (e.target === videoEl || e.target === playBtn || e.target.closest('button')) return;
+        if (videoEl.paused) {
+            videoEl.play().then(() => {
+                playBtn.style.display = 'none';
+            }).catch(() => {});
+        } else {
+            videoEl.pause();
+        }
+    });
+
+    // دکمه قبلی
+    prevBtn.addEventListener('click', () => {
+        if (currentVideoIndex > 0) {
+            currentVideoIndex--;
+            loadCurrentVideo();
+        }
+    });
+
+    // دکمه بعدی
+    nextBtn.addEventListener('click', () => {
+        if (currentVideoIndex < videos.length - 1) {
+            currentVideoIndex++;
+            loadCurrentVideo();
+        }
+    });
+
+    // اولیه‌سازی
+    loadCurrentVideo();
 }
-
+}
         // Initialize Image Gallery
         function initGallery() {
             const grid = document.getElementById('gallery-grid');
@@ -797,6 +969,17 @@ document.getElementById('video-lightbox').addEventListener('click', (e) => {
     if (e.target.id === 'video-lightbox') closeVideoLightbox();
 });
         })();
+    </script>
+    <script>
+        // محو کردن لودینگ پس از بارگذاری کامل صفحه
+        window.addEventListener('load', function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.6s ease-out';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 600);
+        });
     </script>
 </body>
 </html>
