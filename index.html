@@ -65,133 +65,6 @@
         .material-symbols-rounded { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
-        #reels-container {
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
-            cursor: grab;
-        }
-       #reels-container {
-            cursor: grab;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        #reels-container:active {
-            cursor: grabbing;
-}
-        #reels-container:active {
-            cursor: grabbing;
-        }
-        #reels-container > figure {
-            scroll-snap-align: start;
-        }
-        /* بهینه‌سازی ویدئو برای حالت عمودی */
-#video-lightbox video {
-    object-fit: contain;
-}
-
-/* در دسکتاپ: ویدئو حالت کارتی داشته باشد */
-@media (min-width: 768px) {
-    #video-lightbox video {
-        object-fit: cover;
-        border-radius: 1rem;
-    }
-}
-
-/* حذف padding اضافی در موبایل */
-#video-lightbox {
-    background: #000;
-    background: radial-gradient(circle, #000 40%, #111 100%);
-}
-/* لایتباکس ویدئو: پنجره تمام ارتفاع */
-#video-lightbox .relative {
-    aspect-ratio: 9 / 16;
-    height: 100dvh; /* استفاده از dvh برای جلوگیری از مشکل نوار آدرس در موبایل */
-    max-height: 100vh;
-    max-width: 100vw;
-    width: 100%;
-    max-width: 450px; /* عرض استاندارد گوشی */
-    margin: 0 auto;
-}
-
-/* ویدئو در تمام فضا */
-#video-lightbox video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 0;
-}
-
-/* برای مرورگرهای قدیمی */
-@supports not (height: 100dvh) {
-    #video-lightbox .relative {
-        height: 100vh;
-    }
-}
-
-/* اسکرول محتوای زیر لایتباکس غیرفعال است */
-#video-lightbox {
-    overflow-y: hidden;
-}
-/* اجازه اسکرول عمودی در موبایل روی ویدیو */
-#reels-vertical-container {
-    touch-action: pan-y;
-}
-
-/* دکمه Play در وسط ویدیو */
-#video-play-button {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 0%;
-    padding: 16px;
-    backdrop-filter: blur(1px);
-    transition: all 0.2s ease;
-}
-
-#video-play-button:hover {
-    background: rgba(0, 0, 0, 0.6);
-    transform: scale(1.1);
-}
-/* اجازه اسکرول عمودی در موبایل روی ویدیو */
-#reels-mobile-container {
-    touch-action: manipulation;
-}
-
-/* جلوگیری از انتخاب متن روی دکمه‌ها */
-#reels-prev-btn, #reels-next-btn {
-    user-select: none;
-}
-#reels-play-button {
-    /* بدون محتوای داخلی — فقط از ::before استفاده می‌کنیم */
-    width: 70px;
-    height: 70px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    transition: all 0.2s ease;
-    opacity: 0.8;
-    z-index: 20;
-}
-
-#reels-play-button::before {
-    content: '▶';
-    font-size: 36px;
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-}
-
-#reels-play-button:hover {
-    background: rgba(0, 0, 0, 0.6);
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 1;
-}
     </style>
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffbea">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#052e16">
@@ -212,7 +85,6 @@
                 <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
                     <a href="#home" class="text-sm font-semibold hover:text-primary-600 dark:hover:text-primary-400" data-i18n="nav_home">خانه</a>
                     <a href="#address" class="text-sm font-semibold hover:text-primary-600 dark:hover:text-primary-400" data-i18n="nav_address">آدرس</a>
-                    <a href="#reels" class="text-sm font-semibold hover:text-primary-600 dark:hover:text-primary-400" data-i18n="nav_reels">ویدئو‌ها</a>
                     <a href="#gallery" class="text-sm font-semibold hover:text-primary-600 dark:hover:text-primary-400" data-i18n="nav_gallery">گالری</a>
                 </nav>
                 <div class="flex items-center gap-2">
@@ -252,10 +124,6 @@
                                 <a href="#address" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 bg-primary-500 text-white font-bold shadow hover:bg-primary-600 transition">
                                     <span class="material-symbols-rounded">place</span>
                                     <span data-i18n="cta_address">مشاهده آدرس</span>
-                                </a>
-                                <a href="#reels" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 border-2 border-dotted border-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-slate-800 transition">
-                                    <span class="material-symbols-rounded">movie</span>
-                                    <span data-i18n="cta_reels">مشاهده ویدئو‌ها</span>
                                 </a>
                                 <a href="#gallery" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 border-2 border-dotted border-primary-400 font-bold hover:bg-primary-50 dark:hover:bg-slate-800 transition">
                                     <span class="material-symbols-rounded">photo_library</span>
@@ -311,86 +179,6 @@
             </div>
         </section>
 
-        <!-- Reels / Vertical Videos Section -->
-      <!-- Reels / Responsive Video Feed (Reels Mode on Mobile, Horizontal on Desktop) -->
-<section id="reels" class="relative" itemscope itemtype="http://schema.org/VideoGallery" aria-label="reels_aria">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div class="rounded-3xl border-2 border-dotted border-primary-400 bg-white dark:bg-green-950 p-6 sm:p-10 shadow-md">
-            <div class="flex items-start gap-4 sm:gap-6 mb-6">
-                <div class="shrink-0 h-12 w-12 rounded-2xl bg-primary-100 dark:bg-primary-400/10 grid place-items-center text-primary-700 dark:text-primary-300">
-                    <span class="material-symbols-rounded">movie</span>
-                </div>
-                <div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="reels_title">ریلز و ویدئوها</h2>
-                    <p class="text-slate-600 dark:text-slate-400" data-i18n="reels_desc">ویدئوهای زنده از فعالیت‌های موکب و خادمین</p>
-                </div>
-            </div>
-
-            <!-- Desktop: Horizontal Scroll -->
-            <div id="reels-desktop" class="hidden">
-                <div id="reels-container" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth touch-pan-x snap-x snap-mandatory"
-                     style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
-                    <!-- Videos will be injected here by JS -->
-                </div>
-                <div id="reels-empty" class="hidden rounded-2xl border-2 border-dotted border-primary-300 p-8 text-center text-slate-600 dark:text-slate-400" data-i18n="reels_empty">ویدئویی بارگذاری نشده است.</div>
-            </div>
-
-            <!-- Mobile: Single Video with Control Buttons -->
-<!-- Mobile: Single Video with Control Buttons -->
-<div id="reels-mobile" class="hidden">
-    <div class="relative mx-auto max-w-[450px] h-[700px] overflow-hidden rounded-2xl">
-        <!-- Container for Video -->
-        <div id="reels-video-wrapper" class="w-full h-full bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden">
-            <video id="reels-current-video" class="w-full h-full object-cover"></video>
-        </div>
-
-        <!-- Play Button: Centered in Viewport -->
-        <button id="reels-play-button" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></button>
-
-        <!-- Left Control Button (Previous) -->
-        <button id="reels-prev-btn" dir="ltr" class="absolute start-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white text-xl hover:bg-black/60 transition">
-            <span class="material-symbols-rounded">arrow_back</span>
-        </button>
-
-        <!-- Right Control Button (Next) -->
-        <button id="reels-next-btn" dir="ltr" class="absolute end-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white text-xl hover:bg-black/60 transition">
-            <span class="material-symbols-rounded">arrow_forward</span>
-        </button>
-    </div>
-</div>
-        </div>
-    </div>
-</section>
-<!-- Fullscreen Video Lightbox (for mobile view too) -->
-<div id="video-lightbox" class="hidden fixed inset-0 z-[60] bg-black flex items-center justify-center p-0">
-    <button id="video-lightbox-close" class="absolute top-4 end-4 z-10 h-10 w-10 rounded-full bg-white/90 text-slate-900 grid place-items-center hover:bg-white" aria-label="بستن ویدئو">
-        <span class="material-symbols-rounded">close</span>
-    </button>
-    <div class="relative w-full h-screen max-w-[450px] mx-auto flex items-center justify-center">
-        <video id="video-lightbox-player" class="w-full h-full object-contain" playsinline></video>
-        <button id="video-play-button" class="absolute inset-0 flex items-center justify-center text-white opacity-80 hover:opacity-100 transition-opacity">
-            <span class="material-symbols-rounded text-6xl">play_arrow</span>
-        </button>
-    </div>
-</div>
-
-        <!-- Video Lightbox -->
-      <!-- Fullscreen Vertical Video Lightbox (Reels Mode) -->
-<!-- Fullscreen Vertical Video Lightbox (Reels Mode) -->
-<!-- Fullscreen Vertical Video Lightbox (Reels Mode) -->
-<div id="video-lightbox" class="hidden fixed inset-0 z-[60] bg-black flex items-center justify-center p-0">
-    <button id="video-lightbox-close" class="absolute top-4 end-4 z-10 h-10 w-10 rounded-full bg-white/90 text-slate-900 grid place-items-center hover:bg-white" aria-label="بستن ویدئو">
-        <span class="material-symbols-rounded">close</span>
-    </button>
-    <div class="relative w-full h-screen max-w-[450px] mx-auto flex items-center justify-center">
-        <video id="video-lightbox-player" class="w-full h-full object-contain" playsinline></video>
-
-        <!-- دکمه Play در وسط ویدیو -->
-        <button id="video-play-button" class="absolute inset-0 flex items-center justify-center text-white opacity-80 hover:opacity-100 transition-opacity">
-            <span class="material-symbols-rounded text-6xl md:text-8xl">play_arrow</span>
-        </button>
-    </div>
-</div>
 
         <!-- Image Gallery Section -->
         <section id="gallery" class="relative" itemscope itemtype="http://schema.org/ImageGallery" aria-label="gallery_aria">
@@ -446,14 +234,12 @@
                 brand: 'موکب صَحاب',
                 nav_home: 'خانه',
                 nav_address: 'آدرس',
-                nav_reels: 'ویدئو‌ها',
                 nav_gallery: 'گالری',
                 hero_title: 'موکب صَحاب',
                 hero_subtitle: 'در مسیر بازگشت زائران اربعین، پذیرای شما عزیزان هستیم',
                 hero_desc: 'با افتخار خدمت‌رسانی می‌کنیم: صبحانه، ناهار، شام، نماز، روضه و مداحی، محل استراحت خواهران و برادران، سرویس بهداشتی',
                 hero_intro: 'موکب صحاب در مسیر بازگشت زائران اربعین حسینی، پذیرای شما عزیزان هستیم. ما با افتخار در خدمت زائران امام حسین علیه السلام هستیم و تمام تلاش خود را برای رفاه و آسایش شما انجام می‌دهیم.',
                 cta_address: 'مشاهده آدرس',
-                cta_reels: 'مشاهده ویدئو‌ها',
                 cta_gallery: 'مشاهده گالری',
                 address_title: 'آدرس موکب',
                 address_desc: 'موکب صحاب در مسیر بازگشت زائران اربعین، در مرکز نوآوری کندو واقع شده است.',
@@ -475,25 +261,18 @@
                 lightbox_next: 'بعدی',
                 gallery_image_alt: 'تصویر موکب صحاب',
                 gallery_image_caption: 'تصویر موکب صحاب',
-                reels_title: 'ویدئو‌ها و ویدئوها',
-                reels_desc: 'ویدئوهای فعالیت‌های موکب و خادمین',
-                reels_empty: 'ویدئویی بارگذاری نشده است.',
-                video_lightbox_aria: 'نمایش ویدئو',
-                video_lightbox_close: 'بستن ویدئو'
             },
             ar: {
                 site_title: 'موكب صحاب | استقبال زوار الأربعين',
                 brand: 'موكب صَحاب',
                 nav_home: 'الرئيسية',
                 nav_address: 'العنوان',
-                nav_reels: 'الريلز',
                 nav_gallery: 'المعرض',
                 hero_title: 'موكب صَحاب',
                 hero_subtitle: 'في طريق عودة زوار الأربعين، نرحب بكم',
                 hero_desc: 'نخدمكم بفخر: الإفطار، الغداء، العشاء، الصلاة، الروضة والمدح، مكان راحة للنساء والرجال، المراحيض',
                 hero_intro: 'موكب صحاب في طريق عودة زوار الأربعين الحسيني، نرحب بكم. نحن نفخر بخدمة زوار الإمام الحسين عليه السلام ونبذل كل جهدنا لراحتكم ورفاهيتكم.',
                 cta_address: 'عرض العنوان',
-                cta_reels: 'عرض الريلز',
                 cta_gallery: 'عرض المعرض',
                 address_title: 'عنوان الموكب',
                 address_desc: 'موكب صحاب في طريق عودة زوار الأربعين، في مركز كندو للابتكار.',
@@ -515,25 +294,18 @@
                 lightbox_next: 'التالي',
                 gallery_image_alt: 'صورة موكب صحاب',
                 gallery_image_caption: 'صورة موكب صحاب',
-                reels_title: 'الريلز والفيديوهات',
-                reels_desc: 'فيديوهات من نشاطات الموكب والخدام',
-                reels_empty: 'لم يتم تحميل أي فيديو بعد.',
-                video_lightbox_aria: 'عرض الفيديو',
-                video_lightbox_close: 'إغلاق الفيديو'
             },
             en: {
                 site_title: 'Moukeb Sahaab | Welcoming Arbaeen Pilgrims',
                 brand: 'Moukeb Sahaab',
                 nav_home: 'Home',
                 nav_address: 'Address',
-                nav_reels: 'Reels',
                 nav_gallery: 'Gallery',
                 hero_title: 'Moukeb Sahaab',
                 hero_subtitle: 'Welcoming pilgrims on their return journey from Arbaeen',
                 hero_desc: 'Proudly serving: Breakfast, Lunch, Dinner, Prayer, Rawdha and Madahi, Rest area for sisters and brothers, Toilet facilities',
                 hero_intro: 'Moukeb Sahaab welcomes pilgrims on their return journey from Arbaeen. We are proud to serve the pilgrims of Imam Hussain (AS) and do our utmost for your comfort and well-being.',
                 cta_address: 'View Address',
-                cta_reels: 'View Reels',
                 cta_gallery: 'View Gallery',
                 address_title: 'Address',
                 address_desc: 'Moukeb Sahaab is located on the return route of Arbaeen pilgrims, at Kando Innovation Center.',
@@ -555,11 +327,6 @@
                 lightbox_next: 'Next',
                 gallery_image_alt: 'Moukeb Sahaab Image',
                 gallery_image_caption: 'Moukeb Sahaab Image',
-                reels_title: 'Reels & Videos',
-                reels_desc: 'Videos from the Moukeb and volunteers',
-                reels_empty: 'No videos uploaded yet.',
-                video_lightbox_aria: 'View Video',
-                video_lightbox_close: 'Close Video'
             }
         };
 
@@ -591,189 +358,11 @@
             document.getElementById('lightbox-close').setAttribute('aria-label', translations[lang].lightbox_close);
             document.getElementById('lightbox-prev').setAttribute('aria-label', translations[lang].lightbox_prev);
             document.getElementById('lightbox-next').setAttribute('aria-label', translations[lang].lightbox_next);
-            document.getElementById('video-lightbox').setAttribute('aria-label', translations[lang].video_lightbox_aria);
-            document.getElementById('video-lightbox-close').setAttribute('aria-label', translations[lang].video_lightbox_close);
             document.getElementById('btn-lang-fa').setAttribute('aria-pressed', String(lang === 'fa'));
             document.getElementById('btn-lang-ar').setAttribute('aria-pressed', String(lang === 'ar'));
             document.getElementById('btn-lang-en').setAttribute('aria-pressed', String(lang === 'en'));
         }
 
-        // Initialize Reels (Vertical Videos)
-        function initReels() {
-    const base = 'assets/reels/';
-    const candidates = Array.from({ length: 20 }, (_, i) => `${base}${i + 1}.mp4`);
-    let videos = [];
-    let currentVideoIndex = 0;
-
-    // بررسی وجود ویدیو
-    const checkVideo = (src) => {
-        return new Promise((resolve) => {
-            const video = document.createElement('video');
-            video.src = src;
-            video.preload = 'metadata';
-            video.addEventListener('loadedmetadata', () => resolve({ src, video }));
-            video.addEventListener('error', () => resolve(null));
-        });
-    };
-
-    // بارگذاری ویدیوها
-    Promise.all(candidates.map(checkVideo)).then(results => {
-        videos = results.filter(Boolean);
-        if (videos.length === 0) {
-            document.getElementById('reels-empty').classList.remove('hidden');
-            return;
-        }
-
-        // تنظیم نمایش اولیه
-        setupView();
-        window.addEventListener('resize', setupView);
-    });
-
-    // تشخیص دستگاه و نمایش مناسب
-    function setupView() {
-        const isMobile = window.innerWidth <= 768;
-        const desktopView = document.getElementById('reels-desktop');
-        const mobileView = document.getElementById('reels-mobile');
-
-        if (isMobile) {
-            desktopView.classList.add('hidden');
-            mobileView.classList.remove('hidden');
-            initMobileView();
-        } else {
-            mobileView.classList.add('hidden');
-            desktopView.classList.remove('hidden');
-            initDesktopView();
-        }
-    }
-
-    // حالت دسکتاپ: اسکرول افقی
-    function initDesktopView() {
-        const container = document.getElementById('reels-container');
-        container.innerHTML = '';
-
-        videos.forEach(({ src, video }) => {
-            const figure = document.createElement('figure');
-            figure.className = 'relative aspect-[9/16] w-64 flex-shrink-0 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 cursor-pointer hover:scale-[1.02] transition-transform duration-300';
-
-            video.muted = true;
-            video.loop = true;
-            video.className = 'w-full h-full object-cover';
-
-            figure.addEventListener('mouseenter', () => video.play());
-            figure.addEventListener('mouseleave', () => video.pause());
-            figure.addEventListener('click', (e) => {
-                e.preventDefault();
-                openVideoLightbox(src);
-            });
-
-            figure.appendChild(video);
-            container.appendChild(figure);
-
-            video.load();
-        });
-
-        // اسکرول با ماوس
-        let isDown = false, startX, scrollLeft;
-        const el = container;
-        el.addEventListener('mousedown', e => { isDown = true; el.classList.add('cursor-grabbing'); startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
-        el.addEventListener('mouseleave', () => { isDown = false; el.classList.remove('cursor-grabbing'); });
-        el.addEventListener('mouseup', () => { isDown = false; el.classList.remove('cursor-grabbing'); });
-        el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; const walk = (x - startX) * 1.5; el.scrollLeft = scrollLeft - walk; });
-        el.addEventListener('wheel', e => { e.preventDefault(); el.scrollLeft += e.deltaY; });
-    }
-
-    // حالت موبایل: تک ویدیو با دکمه‌های کنترل
-    function initMobileView() {
-    const videoWrapper = document.getElementById('reels-video-wrapper');
-    const videoEl = document.getElementById('reels-current-video');
-    const playBtn = document.getElementById('reels-play-button');
-    const prevBtn = document.getElementById('reels-prev-btn');
-    const nextBtn = document.getElementById('reels-next-btn');
-
-    // نمایش ویدیوی فعلی
-    function loadCurrentVideo() {
-        const { src } = videos[currentVideoIndex];
-        videoEl.src = src;
-        videoEl.load();
-        videoEl.pause();
-        playBtn.style.display = 'block';
-    }
-
-    // کلیک روی دکمه پلی
-    playBtn.addEventListener('click', () => {
-        videoEl.play().then(() => {
-            playBtn.style.display = 'none';
-        }).catch(() => {
-            alert("پخش ویدیو نیاز به تعامل کاربر دارد.");
-        });
-    });
-// کلیک روی ویدیو: پخش/توقف
-videoWrapper.addEventListener('click', (e) => {
-    // اگر روی دکمه پلی یا دکمه‌های کنترل کلیک شد، تداخل نداشته باشد
-    if (e.target === playBtn || e.target.closest('button')) return;
-
-    if (videoEl.paused) {
-        // اگر ویدیو متوقف بود، پخش کن
-        videoEl.play().then(() => {
-            playBtn.style.display = 'none'; // دکمه پلی را مخفی کن
-        }).catch(err => {
-            console.warn("پخش ویدیو ناموفق بود:", err);
-        });
-    } else {
-        // اگر در حال پخش بود، متوقف کن
-        videoEl.pause();
-        // دکمه پلی دوباره نمایش داده نمی‌شود (همانطور که خواستید)
-    }
-});
-    // پخش شد
-    videoEl.addEventListener('play', () => {
-        playBtn.style.display = 'none';
-    });
-
-    // پوز شد
-    videoEl.addEventListener('pause', () => {
-        if (!videoEl.ended) {
-            playBtn.style.display = 'block';
-        }
-    });
-
-    // تمام شد
-    videoEl.addEventListener('ended', () => {
-        playBtn.style.display = 'block';
-    });
-
-    // کلیک روی ویدیو هم پخش/پوز کند
-    videoWrapper.addEventListener('click', (e) => {
-        if (e.target === videoEl || e.target === playBtn || e.target.closest('button')) return;
-        if (videoEl.paused) {
-            videoEl.play().then(() => {
-                playBtn.style.display = 'none';
-            }).catch(() => {});
-        } else {
-            videoEl.pause();
-        }
-    });
-
-    // دکمه قبلی
-    prevBtn.addEventListener('click', () => {
-        if (currentVideoIndex > 0) {
-            currentVideoIndex--;
-            loadCurrentVideo();
-        }
-    });
-
-    // دکمه بعدی
-    nextBtn.addEventListener('click', () => {
-        if (currentVideoIndex < videos.length - 1) {
-            currentVideoIndex++;
-            loadCurrentVideo();
-        }
-    });
-
-    // اولیه‌سازی
-    loadCurrentVideo();
-}
-}
         // Initialize Image Gallery
         function initGallery() {
             const grid = document.getElementById('gallery-grid');
@@ -843,77 +432,6 @@ videoWrapper.addEventListener('click', (e) => {
             lbImg.src = next;
         }
 
-        function openVideoLightbox(src) {
-    const lb = document.getElementById('video-lightbox');
-    const player = document.getElementById('video-lightbox-player');
-    const playBtn = document.getElementById('video-play-button');
-
-    // تنظیم منبع ویدئو
-    player.src = src;
-    player.muted = false;
-    player.currentTime = 0;
-
-    // اولیه‌سازی: ویدیو در حالت پوز، دکمه Play نمایش داده شود
-    playBtn.style.display = 'flex';
-
-    // رویدار برای پخش شدن
-    player.addEventListener('play', () => {
-        playBtn.style.display = 'none';
-    }, { once: true });
-
-    // رویدار برای پوز شدن
-    player.addEventListener('pause', () => {
-        if (!player.ended) {
-            playBtn.style.display = 'flex';
-        }
-    }, { once: false });
-
-    // کلیک روی دکمه Play → پخش ویدیو
-    playBtn.onclick = () => {
-        player.play().catch(e => {
-            console.warn("پخش ویدئو ناموفق بود", e);
-        });
-    };
-
-    // کلیک روی خود ویدیو هم پخش/پوز کند
-    player.parentElement.addEventListener('click', (e) => {
-        if (e.target === player || e.target === playBtn || e.target.closest('button')) return;
-        if (player.paused) {
-            player.play().catch(() => {});
-        } else {
-            player.pause();
-        }
-    }, { once: false });
-
-    // نمایش لایتباکس
-    lb.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-function closeVideoLightbox() {
-    const lb = document.getElementById('video-lightbox');
-    const player = document.getElementById('video-lightbox-player');
-    const playBtn = document.getElementById('video-play-button');
-
-    // متوقف کردن ویدئو و پاک کردن منبع
-    player.pause();
-    player.src = '';
-    player.load();
-
-    // مخفی کردن دکمه Play
-    playBtn.style.display = 'none';
-
-    // حذف رویدادهای اضافه شده
-    player.removeEventListener('play', null);
-    player.removeEventListener('pause', null);
-    playBtn.onclick = null;
-    if (player.parentElement) {
-        player.parentElement.replaceWith(player.parentElement.cloneNode(true)); // حذف رویدادهای مستقیم
-    }
-
-    // مخفی کردن لایتباکس
-    lb.classList.add('hidden');
-    document.body.style.overflow = '';
-}
         // Initialize on Load
         (function () {
             const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -931,18 +449,8 @@ function closeVideoLightbox() {
             document.getElementById('btn-lang-ar').addEventListener('click', () => applyLanguage('ar'));
             document.getElementById('btn-lang-en').addEventListener('click', () => applyLanguage('en'));
 
-            initReels();
             initGallery();
 
-            // Video Lightbox
-            document.getElementById('video-lightbox-close').addEventListener('click', closeVideoLightbox);
-            document.getElementById('video-lightbox').addEventListener('click', (e) => {
-                if (e.target.id === 'video-lightbox') closeVideoLightbox();
-            });
-            window.addEventListener('keydown', (e) => {
-                if (document.getElementById('video-lightbox').classList.contains('hidden')) return;
-                if (e.key === 'Escape') closeVideoLightbox();
-            });
 
             // Image Lightbox
             document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
@@ -958,16 +466,6 @@ function closeVideoLightbox() {
                 if (e.key === 'ArrowLeft') navLightbox(-1);
                 if (e.key === 'ArrowRight') navLightbox(1);
             });
-            // بستن با کلید Escape
-window.addEventListener('keydown', (e) => {
-    if (document.getElementById('video-lightbox').classList.contains('hidden')) return;
-    if (e.key === 'Escape') closeVideoLightbox();
-});
-
-// بستن با کلیک بیرون (روی پس‌زمینه)
-document.getElementById('video-lightbox').addEventListener('click', (e) => {
-    if (e.target.id === 'video-lightbox') closeVideoLightbox();
-});
         })();
     </script>
     <script>
